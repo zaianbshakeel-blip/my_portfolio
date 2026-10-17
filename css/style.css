@@ -1202,44 +1202,229 @@ h2 {
 }
 
 
-/* Process - Separate Cards Fix */
+
+/* PROCESS SECTION */
 
 .steps {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
 
-    overflow: visible;
     border: none;
     border-radius: 0;
     background: transparent;
     box-shadow: none;
+    overflow: visible;
 }
+
+/* Individual Cards */
 
 .steps > div,
 .steps > div:last-child {
-    min-height: 225px;
-    padding: 25px 23px;
+    position: relative;
+    min-width: 0;
+    min-height: 215px;
+    padding: 26px 24px;
+    overflow: hidden;
 
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px;
 
-    background: var(--surface);
+    background: linear-gradient(
+        145deg,
+        #1b1b19,
+        #151513
+    );
 
-    box-shadow: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1),
+        border-color 0.4s ease,
+        background 0.4s ease,
+        box-shadow 0.4s ease;
 }
+
+/* Subtle Gold Top Line */
+
+.steps > div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold),
+        transparent
+    );
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition: transform 0.45s ease;
+}
+
+/* Soft Gold Glow */
+
+.steps > div::after {
+    content: "";
+    position: absolute;
+
+    top: -65px;
+    right: -65px;
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+    background: rgba(215, 179, 106, 0.045);
+    filter: blur(35px);
+
+    opacity: 0;
+    transition: opacity 0.4s ease;
+
+    pointer-events: none;
+}
+
+/* Smooth Hover */
 
 .steps > div:hover {
-    transform: translateY(-5px);
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow-gold);
+    transform: translateY(-6px);
+
+    border-color: rgba(215, 179, 106, 0.35);
+
+    background: linear-gradient(
+        145deg,
+        #20201c,
+        #181816
+    );
+
+    box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.22),
+        0 5px 20px rgba(215, 179, 106, 0.055);
 }
+
+.steps > div:hover::before {
+    transform: scaleX(1);
+}
+
+.steps > div:hover::after {
+    opacity: 1;
+}
+
+/* Number + STEP */
+
+.steps b {
+    position: relative;
+    z-index: 1;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 10px;
+
+    border: 1px solid rgba(215, 179, 106, 0.20);
+    border-radius: 8px;
+
+    background: rgba(215, 179, 106, 0.07);
+
+    color: var(--gold);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease;
+}
+
+.steps b::after {
+    content: "STEP";
+
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+    transition: color 0.35s ease;
+}
+
+.steps > div:hover b {
+    transform: translateY(-2px);
+
+    border-color: rgba(215, 179, 106, 0.4);
+    background: rgba(215, 179, 106, 0.12);
+}
+
+.steps > div:hover b::after {
+    color: var(--gold-light);
+}
+
+/* Card Heading */
+
+.steps h3 {
+    position: relative;
+    z-index: 1;
+
+    margin: 20px 0 9px;
+
+    color: var(--text);
+    font-size: 17px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+
+    transition:
+        color 0.35s ease,
+        transform 0.35s ease;
+}
+
+.steps > div:hover h3 {
+    color: var(--gold-light);
+    transform: translateX(2px);
+}
+
+/* Description */
+
+.steps p {
+    position: relative;
+    z-index: 1;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    line-height: 1.8;
+
+    transition: color 0.35s ease;
+}
+
+.steps > div:hover p {
+    color: var(--muted-light);
+}
+
+/* Tablet */
 
 @media (max-width: 1050px) {
     .steps {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .steps > div,
+    .steps > div:last-child {
+        min-height: 195px;
+        padding: 23px;
     }
 }
+
+/* Mobile */
 
 @media (max-width: 760px) {
     .steps {
@@ -1252,7 +1437,40 @@ h2 {
         min-height: auto;
         padding: 22px;
     }
+
+    .steps h3 {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    .steps p {
+        font-size: 12px;
+    }
+
+    .steps > div:hover {
+        transform: translateY(-3px);
+    }
 }
+
+/* Reduced Motion Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    .steps > div,
+    .steps > div::before,
+    .steps > div::after,
+    .steps b,
+    .steps b::after,
+    .steps h3,
+    .steps p {
+        transition: none;
+    }
+
+    .steps > div:hover,
+    .steps > div:hover h3 {
+        transform: none;
+    }
+}
+
 
 /* FAQ */
 
