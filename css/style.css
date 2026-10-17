@@ -1203,37 +1203,35 @@ h2 {
 
 /* Process */
 
+
+/* Process */
+
 .steps {
     display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    overflow: hidden;
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    background: var(--surface);
-
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    overflow: visible;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .steps > div {
-    min-height: 190px;
-
+    min-width: 0;
+    min-height: 225px;
     position: relative;
+    padding: 25px 23px;
+    overflow: hidden;
 
-    padding: 24px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 
-    border-right: 1px solid var(--border);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255, 255, 255, 0.025),
-            transparent
-        );
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.045),
+        rgba(255, 255, 255, 0.012)
+    );
 
     transition:
         transform 0.3s ease,
@@ -1243,43 +1241,34 @@ h2 {
 }
 
 .steps > div:last-child {
-    border-right: 0;
+    border-right: 1px solid var(--border);
 }
 
 .steps > div::before {
     content: "";
-
     position: absolute;
-
     left: 0;
     top: 0;
-
     width: 100%;
     height: 2px;
 
     background: var(--gold);
-
     transform: scaleX(0);
-
     transform-origin: left;
-
     transition: transform 0.35s ease;
 }
 
 .steps > div:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    border-color: var(--border-gold);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(215, 179, 106, 0.09),
-            rgba(255, 255, 255, 0.015)
-        );
+    background: linear-gradient(
+        145deg,
+        rgba(215, 179, 106, 0.09),
+        rgba(255, 255, 255, 0.015)
+    );
 
-    border-color: rgba(215, 179, 106, 0.20);
-
-    box-shadow:
-        inset 0 0 35px rgba(215, 179, 106, 0.035);
+    box-shadow: var(--shadow-gold);
 }
 
 .steps > div:hover::before {
@@ -1288,25 +1277,21 @@ h2 {
 
 .steps b {
     position: relative;
-
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 
-    min-width: 38px;
-    min-height: 28px;
+    min-width: 40px;
+    min-height: 30px;
+    padding: 0 9px;
 
-    padding: 0 8px;
-
-    border: 1px solid rgba(215, 179, 106, 0.16);
-
+    border: 1px solid rgba(215, 179, 106, 0.2);
     border-radius: 8px;
 
     background: rgba(215, 179, 106, 0.06);
-
     color: var(--gold);
 
     font-size: 10px;
-
     letter-spacing: 1px;
 
     transition: var(--transition);
@@ -1314,21 +1299,15 @@ h2 {
 
 .steps > div:hover b {
     background: var(--gold);
-
     border-color: var(--gold);
-
     color: #17140d;
-
     transform: translateY(-2px);
 }
 
 .steps h3 {
-    margin: 20px 0 8px;
-
+    margin: 19px 0 9px;
     color: var(--text);
-
-    font-size: 15px;
-
+    font-size: 16px;
     transition: var(--transition);
 }
 
@@ -1337,18 +1316,57 @@ h2 {
 }
 
 .steps p {
+    position: relative;
     color: var(--muted);
-
     font-size: 12px;
-
-    line-height: 1.7;
-
+    line-height: 1.8;
     transition: var(--transition);
 }
 
 .steps > div:hover p {
     color: var(--muted-light);
 }
+
+/* Process tablet */
+
+@media (max-width: 1050px) {
+    .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .steps > div,
+    .steps > div:last-child {
+        border: 1px solid var(--border);
+    }
+}
+
+/* Process mobile */
+
+@media (max-width: 760px) {
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .steps > div {
+        min-height: auto;
+        padding: 22px;
+    }
+
+    .steps > div:hover {
+        transform: translateY(-3px);
+    }
+
+    .steps h3 {
+        margin: 14px 0 7px;
+    }
+
+    .steps p {
+        font-size: 12px;
+    }
+}
+
 
 /* FAQ */
 
